@@ -11,7 +11,7 @@ const ALLOWED_GROUPS = [
 
 const CONFIG = {
     prefix: '!',
-    adminNumber: '48123456789@c.us',
+    adminNumber: '48693205391@c.us',
     autoDeleteSeconds: 30,
     silentCommands: ['calc', 'notatka'],
     welcomeMessage: `🎉 *Witaj w grupie!* 🎉
