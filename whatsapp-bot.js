@@ -14,6 +14,7 @@ const CONFIG = {
     welcomeMessage: `🎉 *Witaj w grupie!* 🎉\n\n📋 *ZASADY:*\n• Bądź miły dla innych\n• Nie spamuj\n• Używaj komend z prefiksem !`
 };
 
+// mapy na ankiety i statystyki
 const polls = new Map();
 const userStats = new Map();
 const userNames = new Map();
@@ -21,15 +22,16 @@ const userNames = new Map();
 // auth state
 const { state, saveState } = useSingleFileAuthState('./auth_info.json');
 
+// inicjalizacja klienta
 const client = makeWASocket({
     auth: state,
     printQRInTerminal: true
 });
 
-// zapis auth przy zmianach
+// zapis zmian auth
 client.ev.on('creds.update', saveState);
 
-// helper do sprawdzania dozwolonych grup
+// helper: sprawdzanie grupy
 function isAllowedGroup(jid) {
     if (ALLOWED_GROUPS.length === 0) return true;
     return ALLOWED_GROUPS.includes(jid);
@@ -41,13 +43,15 @@ async function sendAndDelete(jid, text, options = {}) {
     const sentMsg = await client.sendMessage(jid, { text });
     if (deleteAfter > 0) {
         setTimeout(async () => {
-            try { await client.sendMessage(jid, { delete: { id: sentMsg.key.id, remoteJid: jid } }); } catch(e) {}
+            try { 
+                await client.sendMessage(jid, { delete: { id: sentMsg.key.id, remoteJid: jid } }); 
+            } catch(e) {}
         }, deleteAfter * 1000);
     }
     return sentMsg;
 }
 
-// obsługa wiadomości
+// obsługa przychodzących wiadomości
 client.ev.on('messages.upsert', async (m) => {
     const msg = m.messages[0];
     if (!msg.message || !msg.key.remoteJid) return;
@@ -159,3 +163,5 @@ client.ev.on('groups.update', async (updates) => {
         }
     }
 });
+
+console.log('🚀 Bot uruchomiony! Zeskanuj QR przy pierwszym starcie w terminalu');
