@@ -1,0 +1,16 @@
+{
+  "name": "whatsapp-bot",
+  "version": "1.0.0",
+  "description": "WhatsApp bot on Render",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "postinstall": "npx puppeteer browsers install chrome"
+  },
+  "dependencies": {
+    "puppeteer": "^22.0.0",
+    "whatsapp-web.js": "^1.23.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
