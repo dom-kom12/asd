@@ -64,12 +64,14 @@ const polls = new Map();
 const userStats = new Map();
 const userNames = new Map();
 
+const { Client } = require('whatsapp-web.js');
+
 const client = new Client({
-    authStrategy: new LocalAuth(),
-    puppeteer: {
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    }
+  puppeteer: {
+    headless: true,
+    executablePath: '/usr/bin/chromium',
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  }
 });
 
 client.on('qr', (qr) => {
