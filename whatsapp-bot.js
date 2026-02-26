@@ -64,8 +64,6 @@ const polls = new Map();
 const userStats = new Map();
 const userNames = new Map();
 
-const { Client } = require('whatsapp-web.js');
-
 const client = new Client({
   puppeteer: {
     headless: true,
